@@ -49,7 +49,7 @@ const Navbar = () => {
         </nav>
 
         <div onClick={handleNav} className="block md:hidden">
-          {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+          {nav ? <AiOutlineClose size={35} /> : <AiOutlineMenu size={35} />}
         </div>
         <ul
           className={
@@ -61,7 +61,7 @@ const Navbar = () => {
           <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">
             RECRUIT ZILLA.
           </h1>
-          <ul>
+          <ul >
             <Link to="home" smooth={true}>
               <li className="p-4 border-b border-gray-600">
                 <button>Home</button>
