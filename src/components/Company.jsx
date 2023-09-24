@@ -1,17 +1,16 @@
 import React from 'react';
 import { Link, Element } from "react-scroll";
 
-const Newsletter = () => {
+const Company = () => {
   
   return (
-    <Element id="contact">
-    <div className='w-full py-16 text-white px-4'>
+    <div name="company" className='w-full py-16 text-white px-4'>
       <div className='max-w-[1240px] mx-auto grid lg:grid-cols-3'>
         <div className='lg:col-span-2 my-4'>
           <h1 className='md:text-4xl sm:text-3xl text-2xl font-bold py-2'>
           Want to recruit young talent?
           </h1>
-          <p>Sign up to our newsletter and stay up to date.</p>
+          <p>Sign up to our Newsletter and stay up to date.</p>
         </div>
         <div className='my-4'>
           <div className='flex flex-col sm:flex-row items-center justify-between w-full'>
@@ -31,8 +30,7 @@ const Newsletter = () => {
         </div>
       </div>
     </div>
-    </Element>
   );
 };
 
-export default Newsletter;
+export default Company;

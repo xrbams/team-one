@@ -1,26 +1,26 @@
 import React from "react";
-// import './App.css'
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import Analytics from "./components/Analytics";
-import Newsletter from "./components/Newsletter";
+import Newsletter from "./components/Company";
+import LandingPage from "./components/LandingPage";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Card from "./components/Card/Card";
-import { BrowserRouter, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
+    <BrowserRouter>
+      <div>
         <Navbar />
-        <Hero />
-        <Analytics />
-        <Newsletter />
-        <Footer />
-        {/* <Routes path="/login" element={<Login />} /> */}
-      </BrowserRouter>
-    </div>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/app/filter" element={<Analytics />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

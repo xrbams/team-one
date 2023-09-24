@@ -10,9 +10,8 @@ import { Link, Element } from "react-scroll";
 
 const Footer = () => {
   return (
-    <Element id="about">
 
-    <div className="max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-300">
+    <div className="contact max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-300">
       <div>
         <h1 className="w-full text-3xl font-bold text-[#00df9a]">
           RECRUIT ZILLA.
@@ -67,7 +66,6 @@ const Footer = () => {
         </div>
       </div>
     </div>
-    </Element>
   );
 };
 
