@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  background-color: #000300;
+}
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.hero-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(30%);
+
+}
+.smooth-scroll {
+  transition: scroll-behavior 0.5s ease;
+}
+.hidden-navbar {
+  transform: translateY(-100%);
+}
+.fixed-navbar {
+  position: fixed;
+  transition: transform 0.3s ease-in-out;
+
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(0.1px); 
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.navbar-placeholder {
+  height: 96px; /* Adjust according to the actual height of your Navbar */
+}
