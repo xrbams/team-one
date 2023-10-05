@@ -14,7 +14,7 @@ const LoginPage = () => {
 
     // TODO: Implement login logic here
 
-    navigate("/app/filter");
+    navigate("/app/portal");
   };
 
   return (
