@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  background-color: #000300;
+  background-color: #f6f6f9;
 }
 .hero-video {
   position: absolute;
@@ -35,9 +35,15 @@ body {
   z-index: 1000;
   backdrop-filter: blur(0.1px); 
   background-color: rgba(0, 0, 0, 0.5);
+  
 }
 
 
 .navbar-placeholder {
   height: 96px; /* Adjust according to the actual height of your Navbar */
+}
+
+.custom-tag {
+  background-color: #00df9a !important;
+  color: white !important;
 }

@@ -14,12 +14,12 @@ const LoginPage = () => {
 
     // TODO: Implement login logic here
 
-    navigate("/app/portal");
+    navigate("/app/filter");
   };
 
   return (
-    <div>
-      <div className="flex flex-col justify-center items-center h-screen">
+    <div >
+      <div className="flex flex-col  justify-center items-center h-screen">
         <div className="flex flex-col justify-center items-center w-1/2">
           <div className="flex justify-center items-center">
             <h2 className="text-center text-4xl font-bold ml-2">Login</h2>

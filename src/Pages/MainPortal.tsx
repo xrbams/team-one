@@ -9,11 +9,14 @@ import Login from "../components/Login";
 import Card from "../components/Card/Card";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Portal/Layout";
+import { Grid } from "@mui/material";
 
 function MainPortal() {
   return (
       <div>
         {/* <Navbar /> */}
+        <Grid spacing={"23324"} paddingTop={"40px"}></Grid>
+
         <Layout />
         
       </div>
