@@ -50,16 +50,14 @@ const FilterLabels = ({ label }) => {
   return (
     <Box
       sx={{
-        height: 30,
-        fontSize: 20,
+        fontSize: 16, // Change to smaller font size
         paddingTop: 1,
-        paddingBottom: 4,
-        // border: "1px solid grey",
+        paddingBottom: 2, // Adjust padding
       }}
     >
-      <h1>
-        <b>{label}</b>
-      </h1>
+      <Typography color={"black"} variant="h6">
+        {label}
+      </Typography>{" "}
     </Box>
   );
 };
@@ -137,8 +135,15 @@ function App() {
     <Container>
       <Grid container spacing={3}>
         {/* Filter Section */}
-        <Grid item xs={12} md={4} spacing={4}>
-          <Paper style={{ backgroundColor: "#fff", color: "black" }}>
+        <Grid item xs={12} md={4} spacing={2}>
+          <Paper
+            style={{
+              backgroundColor: "#fff",
+              color: "black",
+              borderRadius: "12px", // Rounded corners
+            }}
+          >
+            {" "}
             <FilterLabels label={"Search by courses"} />
             <Stack spacing={3} sx={{ width: "100%" }}>
               <Autocomplete
@@ -216,39 +221,44 @@ function App() {
           <Paper
             style={{
               padding: "16px",
-              backgroundColor: "#fff",
+              backgroundColor: "transparent",
               color: "#black",
+              boxShadow: "none"
+              // borderRadius: "12px", // Rounded corners
             }}
           >
             {/* Header */}
-            <Grid
-              container
-              alignItems="center"
-              spacing={2}
+
+            <Card
               style={{
                 marginBottom: "15px",
-                fontWeight: "bold",
+                padding: "10px",
                 color: "black",
+                borderRadius: "12px", // Rounded corners
+                backgroundColor: "#f6f6f9",
               }}
             >
-              <Grid item xs={2}>
-                Avatar
+              <Grid container alignItems="center" spacing={2}>
+                <Grid item xs={2}>
+                  Avatar
+                </Grid>
+                <Grid item xs={5}>
+                  Name
+                </Grid>
+                <Grid item xs={5}>
+                  Nationality
+                </Grid>
               </Grid>
-              <Grid item xs={5}>
-                Name
-              </Grid>
-              <Grid item xs={5}>
-                Nationality
-              </Grid>
-            </Grid>
+            </Card>
             {/* Student Cards */}
             {currentStudents.map((student) => (
               <Card
                 key={student.id}
                 style={{
-                  marginBottom: "5px",
+                  marginBottom: "6px",
                   padding: "10px",
                   color: "black",
+                  borderRadius: "12px", // Rounded corners
                 }}
               >
                 <Grid container alignItems="center" spacing={2}>
