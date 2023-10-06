@@ -18,7 +18,8 @@ function MainPortal() {
         <Grid spacing={"23324"} paddingTop={"40px"}></Grid>
 
         <Layout />
-        
+        <Grid spacing={"233324"} paddingTop={"40px"}></Grid>
+
       </div>
   );
 }

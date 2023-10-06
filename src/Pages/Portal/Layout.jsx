@@ -16,6 +16,7 @@ import {
   Pagination,
   Box,
   Slider,
+  Chip,
 } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -69,7 +70,7 @@ function App() {
   const [data, setData] = useState([]); // Initialize with empty array
   const [courses, setCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [studentsPerPage] = useState(10);
+  const [studentsPerPage] = useState(7);
 
   const indexOfLastStudent = currentPage * studentsPerPage;
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
@@ -135,7 +136,7 @@ function App() {
     <Container>
       <Grid container spacing={3}>
         {/* Filter Section */}
-        <Grid item xs={12} md={4} spacing={2}>
+        <Grid item xs={12} md={4} padding={10}>
           <Paper
             style={{
               backgroundColor: "#fff",
@@ -164,18 +165,30 @@ function App() {
           </Paper>
           <Paper style={{ backgroundColor: "#fff", color: "black" }}>
             <FilterLabels label={"Skills"} />
+
             {uniqueSkillsArray.map((skill) => (
-              <FormControlLabel
-                key={skill}
-                control={
-                  <Checkbox
-                    checked={selectedFilters.includes(skill)}
-                    onChange={() => handleSkillFilterChange(skill)}
-                    name={skill}
-                  />
-                }
-                label={skill}
-              />
+              <Grid item xs={12} md={8}>
+                <FormControlLabel
+                  key={skill}
+                  control={
+                    <Checkbox
+                      checked={selectedFilters.includes(skill)}
+                      onChange={() => handleSkillFilterChange(skill)}
+                      name={skill}
+                      color="default"
+                      style={{
+                        "&$checked": {
+                          color: "#00e676",
+                        },
+                        color: selectedFilters.includes(skill)
+                          ? "#00e676"
+                          : "grey",
+                      }}
+                    />
+                  }
+                  label={skill}
+                />
+              </Grid>
             ))}
           </Paper>
           <Paper style={{ backgroundColor: "#fff", color: "black" }}>
@@ -189,6 +202,15 @@ function App() {
                     checked={selectedFilters.includes(grade)}
                     onChange={() => handleSkillFilterChange(grade)}
                     name={grade}
+                    color="default"
+                    style={{
+                      "&$checked": {
+                        color: "#00e676",
+                      },
+                      color: selectedFilters.includes(grade)
+                        ? "#00e676"
+                        : "grey",
+                    }}
                   />
                 }
                 label={grade}
@@ -205,6 +227,15 @@ function App() {
                     checked={selectedFilters.includes(year)}
                     onChange={() => handleSkillFilterChange(year)}
                     name={year}
+                    color="default"
+                    style={{
+                      "&$checked": {
+                        color: "#00e676",
+                      },
+                      color: selectedFilters.includes(year)
+                        ? "#00e676"
+                        : "grey",
+                    }}
                   />
                 }
                 label={year}
@@ -217,13 +248,13 @@ function App() {
           <Typography
             color={"black"}
             variant="h5"
-          >{`${data.length} matches`}</Typography>
+          >{`${data.length} matches found`}</Typography>
           <Paper
             style={{
               padding: "16px",
               backgroundColor: "transparent",
               color: "#black",
-              boxShadow: "none"
+              boxShadow: "none",
               // borderRadius: "12px", // Rounded corners
             }}
           >
@@ -235,47 +266,69 @@ function App() {
                 padding: "10px",
                 color: "black",
                 borderRadius: "12px", // Rounded corners
-                backgroundColor: "#f6f6f9",
+                backgroundColor: "#ff",
               }}
             >
               <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={2}>
-                  Avatar
-                </Grid>
-                <Grid item xs={5}>
+                <Grid item xs={3}>
                   Name
                 </Grid>
-                <Grid item xs={5}>
+                <Grid item xs={2}>
                   Nationality
+                </Grid>
+                <Grid item xs={3}>
+                  Grades
+                </Grid>
+                <Grid item xs={1}>
+                  Expected year of graduation
                 </Grid>
               </Grid>
             </Card>
             {/* Student Cards */}
-            {currentStudents.map((student) => (
-              <Card
-                key={student.id}
-                style={{
-                  marginBottom: "6px",
-                  padding: "10px",
-                  color: "black",
-                  borderRadius: "12px", // Rounded corners
-                }}
-              >
-                <Grid container alignItems="center" spacing={2}>
-                  <Grid item xs={2}>
-                    <Avatar>{student.name[0]}</Avatar>
+            {currentStudents.map((student) => {
+              const avgGrade =
+                student.list_of_courses.reduce(
+                  (acc, curr) => acc + curr.grade,
+                  0
+                ) / student.list_of_courses.length;
+
+              return (
+                <Card
+                  key={student.id}
+                  style={{
+                    marginBottom: "6px",
+                    padding: "10px",
+                    color: "black",
+                    borderRadius: "12px",
+                  }}
+                >
+                  <Grid container alignItems="center" spacing={2}>
+                    <Grid item >
+                      <Avatar>{student.name[0]}</Avatar>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Typography variant="h6">{student.name}</Typography>
+                    </Grid>
+                    <Grid item xs={2}>
+                      <Typography variant="subtitle1">
+                        {student.nationality}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Chip
+                        label={`${avgGrade.toFixed(1)}`}
+                        color="primary"
+                      />
+                    </Grid>
+                    <Grid item xs={1}>
+                      <Typography variant="subtitle1">
+                        {`${student.expected_graduate_year}`}
+                      </Typography>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={5}>
-                    <Typography variant="h6">{student.name}</Typography>
-                  </Grid>
-                  <Grid item xs={5}>
-                    <Typography variant="subtitle1">
-                      {student.nationality}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            ))}
+                </Card>
+              );
+            })}
           </Paper>
           <div
             style={{
@@ -288,7 +341,7 @@ function App() {
               count={Math.ceil(data.length / studentsPerPage)}
               page={currentPage}
               onChange={handlePageChange}
-              color="primary"
+              sx={{ color: { color: "#00df9a" } }}
             />
           </div>
         </Grid>
