@@ -310,7 +310,7 @@ function App() {
                       <Typography variant="h6">{student.name}</Typography>
                     </Grid>
                     <Grid item xs={3}>
-                      <Typography variant="subtitle1">
+                      <Typography variant="subtitle1" color={"grey"}>
                         {student.nationality}
                       </Typography>
                     </Grid>
