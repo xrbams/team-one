@@ -17,6 +17,9 @@ import {
   Box,
   Slider,
   Chip,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -25,6 +28,36 @@ import FormLabel from "@mui/material/FormLabel";
 import studentsJSON from "../../../data/students.json"; // Assuming students.json is in a data folder at the root directory
 import coursesJSON from "../../../data/courses.json"; // Assuming courses.json is in a data folder at the root directory
 
+
+
+function stringToColor(string) {
+  let hash = 0;
+  let i;
+
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = "#";
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+  /* eslint-enable no-bitwise */
+
+  return color;
+}
+
+function stringAvatar(name) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name),
+    },
+    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+  };
+}
 const uniqueSkills = new Set();
 studentsJSON.forEach((student) => {
   student.skills.forEach((skill) => {
@@ -44,6 +77,7 @@ studentsJSON.forEach((student) => {
     student.list_of_courses.length;
   uniqueGrades.add(Math.round(avgGrade));
 });
+
 
 const uniqueGradesArray = Array.from(uniqueGrades);
 const uniqueGradYearsArray = Array.from(uniqueGradYears);
@@ -70,11 +104,39 @@ function App() {
   const [data, setData] = useState([]); // Initialize with empty array
   const [courses, setCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [studentsPerPage] = useState(7);
+  const [studentsPerPage] = useState(12);
+  const [selectedSort, setSelectedSort] = useState("");
 
   const indexOfLastStudent = currentPage * studentsPerPage;
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
   const currentStudents = data.slice(indexOfFirstStudent, indexOfLastStudent);
+  
+  const sortData = (option) => {
+    const sortedStudents = [...data].sort((a, b) => {
+      if (option === "Name") {
+        return a.name.localeCompare(b.name);
+      }
+      if (option === "Nationality") {
+        return a.nationality.localeCompare(b.nationality);
+      }
+      if (option === "Grades") {
+        const avgGradeA =
+          a.list_of_courses.reduce((acc, curr) => acc + curr.grade, 0) /
+          a.list_of_courses.length;
+        const avgGradeB =
+          b.list_of_courses.reduce((acc, curr) => acc + curr.grade, 0) /
+          b.list_of_courses.length;
+        return avgGradeA - avgGradeB;
+      }
+      if (option === "Expected year of graduation") {
+        return a.expected_graduate_year - b.expected_graduate_year;
+      }
+      return 0;
+    });
+    setData(sortedStudents);
+  };
+
+  
   useEffect(() => {
     // Fetch local JSON data for students and courses
     setStudents(studentsJSON);
@@ -122,7 +184,11 @@ function App() {
     });
 
     setData(filteredStudents);
+
+ 
+    
   };
+
   const handleGradeChange = (event) => {
     setSelectedGrade(event.target.value);
     filterData([...selectedFilters, event.target.value]);
@@ -136,9 +202,11 @@ function App() {
     <Container>
       <Grid container spacing={3}>
         {/* Filter Section */}
-        <Grid item xs={12} md={4} padding={10}>
+
+        <Grid item xs={12} md={4} padding={8}>
           <Paper
             style={{
+              paddingLeft: "5px",
               backgroundColor: "#fff",
               color: "black",
               borderRadius: "12px", // Rounded corners
@@ -245,10 +313,34 @@ function App() {
         </Grid>
         {/* Content Section */}
         <Grid item xs={12} md={8}>
-          <Typography
-            color={"black"}
-            variant="h5"
-          >{`${data.length} matches found`}</Typography>
+        <Grid container alignItems="center" spacing={2}>
+  <Grid item xs={6}>
+    <Typography color={"black"} variant="h5">
+      {`${data.length} matches found`}
+    </Typography>
+  </Grid>
+  <Grid item xs={6} style={{ textAlign: 'right' }}>
+    <FormControl variant="outlined" size="small">
+      <InputLabel>Sort By</InputLabel>
+      <Select
+        value={selectedSort}
+        onChange={(e) => {
+          setSelectedSort(e.target.value);
+          sortData(e.target.value);
+        }}
+        label="Sort By"
+      >
+        <MenuItem value={"Name"}>Name</MenuItem>
+        <MenuItem value={"Nationality"}>Nationality</MenuItem>
+        <MenuItem value={"Grades"}>Grades</MenuItem>
+        <MenuItem value={"Expected year of graduation"}>
+          Expected year of graduation
+        </MenuItem>
+      </Select>
+    </FormControl>
+  </Grid>
+</Grid>
+
           <Paper
             style={{
               padding: "16px",
@@ -279,7 +371,7 @@ function App() {
                 <Grid item xs={2}>
                   Grades
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={2}>
                   Expected year of graduation
                 </Grid>
               </Grid>
@@ -303,8 +395,11 @@ function App() {
                   }}
                 >
                   <Grid container alignItems="center" spacing={2}>
-                    <Grid item >
-                      <Avatar>{student.name[0]}</Avatar>
+                    <Grid item>
+                      <Avatar
+                        alt={student.name}
+                        {...stringAvatar(student.name)}
+                      />
                     </Grid>
                     <Grid item xs={3}>
                       <Typography variant="h6">{student.name}</Typography>
@@ -322,11 +417,10 @@ function App() {
                     </Grid>
                     <Grid item xs={2}>
                       <Typography variant="subtitle1">
-                      <Chip
-                        label={`${student.expected_graduate_year}`}
-                        color="primary"
-                      />
-                        
+                        <Chip
+                          label={`${student.expected_graduate_year}`}
+                          color="primary"
+                        />
                       </Typography>
                     </Grid>
                   </Grid>
