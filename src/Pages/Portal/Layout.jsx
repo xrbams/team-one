@@ -20,6 +20,11 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
 } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -27,9 +32,8 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import studentsJSON from "../../../data/students.json"; // Assuming students.json is in a data folder at the root directory
 import coursesJSON from "../../../data/courses.json"; // Assuming courses.json is in a data folder at the root directory
-
-
-
+import StudentDialog from "./Dialog"; // The path should be relative to your App.js file
+import StudentCard from "./Card"; 
 function stringToColor(string) {
   let hash = 0;
   let i;
@@ -78,7 +82,6 @@ studentsJSON.forEach((student) => {
   uniqueGrades.add(Math.round(avgGrade));
 });
 
-
 const uniqueGradesArray = Array.from(uniqueGrades);
 const uniqueGradYearsArray = Array.from(uniqueGradYears);
 const FilterLabels = ({ label }) => {
@@ -110,7 +113,14 @@ function App() {
   const indexOfLastStudent = currentPage * studentsPerPage;
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
   const currentStudents = data.slice(indexOfFirstStudent, indexOfLastStudent);
-  
+  const [selectedStudent, setSelectedStudent] = useState(null);
+
+  const handleCardClick = (studentId) => {
+    const student = students.find((s) => s.id === studentId);
+    setSelectedStudent(student);
+    // Open the dialog here with the selected student's name
+  };
+
   const sortData = (option) => {
     const sortedStudents = [...data].sort((a, b) => {
       if (option === "Name") {
@@ -136,7 +146,6 @@ function App() {
     setData(sortedStudents);
   };
 
-  
   useEffect(() => {
     // Fetch local JSON data for students and courses
     setStudents(studentsJSON);
@@ -184,9 +193,6 @@ function App() {
     });
 
     setData(filteredStudents);
-
- 
-    
   };
 
   const handleGradeChange = (event) => {
@@ -313,33 +319,33 @@ function App() {
         </Grid>
         {/* Content Section */}
         <Grid item xs={12} md={8}>
-        <Grid container alignItems="center" spacing={2}>
-  <Grid item xs={6}>
-    <Typography color={"black"} variant="h5">
-      {`${data.length} matches found`}
-    </Typography>
-  </Grid>
-  <Grid item xs={6} style={{ textAlign: 'right' }}>
-    <FormControl variant="outlined" size="small">
-      <InputLabel>Sort By</InputLabel>
-      <Select
-        value={selectedSort}
-        onChange={(e) => {
-          setSelectedSort(e.target.value);
-          sortData(e.target.value);
-        }}
-        label="Sort By"
-      >
-        <MenuItem value={"Name"}>Name</MenuItem>
-        <MenuItem value={"Nationality"}>Nationality</MenuItem>
-        <MenuItem value={"Grades"}>Grades</MenuItem>
-        <MenuItem value={"Expected year of graduation"}>
-          Expected year of graduation
-        </MenuItem>
-      </Select>
-    </FormControl>
-  </Grid>
-</Grid>
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item xs={6}>
+              <Typography color={"black"} variant="h5">
+                {`${data.length} matches found`}
+              </Typography>
+            </Grid>
+            <Grid item xs={6} style={{ textAlign: "right" }}>
+              <FormControl variant="outlined" size="small">
+                <InputLabel>Sort By</InputLabel>
+                <Select
+                  value={selectedSort}
+                  onChange={(e) => {
+                    setSelectedSort(e.target.value);
+                    sortData(e.target.value);
+                  }}
+                  label="Sort By"
+                >
+                  <MenuItem value={"Name"}>Name</MenuItem>
+                  <MenuItem value={"Nationality"}>Nationality</MenuItem>
+                  <MenuItem value={"Grades"}>Grades</MenuItem>
+                  <MenuItem value={"Expected year of graduation"}>
+                    Expected year of graduation
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
 
           <Paper
             style={{
@@ -385,46 +391,12 @@ function App() {
                 ) / student.list_of_courses.length;
 
               return (
-                <Card
-                  key={student.id}
-                  style={{
-                    marginBottom: "6px",
-                    padding: "10px",
-                    color: "black",
-                    borderRadius: "12px",
-                  }}
-                >
-                  <Grid container alignItems="center" spacing={2}>
-                    <Grid item>
-                      <Avatar
-                        alt={student.name}
-                        {...stringAvatar(student.name)}
-                      />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <Typography variant="h6">{student.name}</Typography>
-                    </Grid>
-                    <Grid item xs={3}>
-                      <Typography variant="subtitle1" color={"grey"}>
-                        {student.nationality}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Chip
-                        label={`${avgGrade.toFixed(1)}/5.0`}
-                        color="success"
-                      />
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Typography variant="subtitle1">
-                        <Chip
-                          label={`${student.expected_graduate_year}`}
-                          color="primary"
-                        />
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Card>
+                <StudentCard 
+                student={student} 
+                handleCardClick={handleCardClick} 
+                avgGrade={avgGrade} 
+                stringAvatar={stringAvatar} 
+              />
               );
             })}
           </Paper>
@@ -444,6 +416,10 @@ function App() {
           </div>
         </Grid>
       </Grid>
+      <StudentDialog
+        selectedStudent={selectedStudent}
+        setSelectedStudent={setSelectedStudent}
+      />
     </Container>
   );
 }
