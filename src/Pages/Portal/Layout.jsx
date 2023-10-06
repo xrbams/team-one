@@ -270,13 +270,13 @@ function App() {
               }}
             >
               <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                   Name
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={3}>
                   Nationality
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                   Grades
                 </Grid>
                 <Grid item xs={1}>
@@ -309,20 +309,24 @@ function App() {
                     <Grid item xs={3}>
                       <Typography variant="h6">{student.name}</Typography>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                       <Typography variant="subtitle1">
                         {student.nationality}
                       </Typography>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
                       <Chip
-                        label={`${avgGrade.toFixed(1)}`}
-                        color="primary"
+                        label={`${avgGrade.toFixed(1)}/5.0`}
+                        color="success"
                       />
                     </Grid>
-                    <Grid item xs={1}>
+                    <Grid item xs={2}>
                       <Typography variant="subtitle1">
-                        {`${student.expected_graduate_year}`}
+                      <Chip
+                        label={`${student.expected_graduate_year}`}
+                        color="primary"
+                      />
+                        
                       </Typography>
                     </Grid>
                   </Grid>
