@@ -26,12 +26,11 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import studentsJSON from "../../../data/students.json"; // Assuming students.json is in a data folder at the root directory
-import coursesJSON from "../../../data/courses.json"; // Assuming courses.json is in a data folder at the root directory
 import StudentDialog from "./Dialog"; // The path should be relative to your App.js file
 import StudentCard from "./Card";
 function stringToColor(string) {
@@ -62,28 +61,7 @@ function stringAvatar(name) {
     children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
   };
 }
-const uniqueSkills = new Set();
-studentsJSON.forEach((student) => {
-  student.skills.forEach((skill) => {
-    uniqueSkills.add(skill);
-  });
-});
-const uniqueSkillsArray = Array.from(uniqueSkills);
 
-const uniqueGrades = new Set();
-const uniqueGradYears = new Set();
-
-studentsJSON.forEach((student) => {
-  uniqueGradYears.add(student.expected_graduate_year);
-
-  const avgGrade =
-    student.list_of_courses.reduce((acc, curr) => acc + curr.grade, 0) /
-    student.list_of_courses.length;
-  uniqueGrades.add(Math.round(avgGrade));
-});
-
-const uniqueGradesArray = Array.from(uniqueGrades);
-const uniqueGradYearsArray = Array.from(uniqueGradYears);
 const FilterLabels = ({ label }) => {
   return (
     <Box
@@ -93,7 +71,7 @@ const FilterLabels = ({ label }) => {
         paddingBottom: 2, // Adjust padding
       }}
     >
-      <Typography color={"black"} variant="h6">
+      <Typography color={"white"} variant="h6">
         {label}
       </Typography>{" "}
     </Box>
@@ -114,6 +92,30 @@ function App() {
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
   const currentStudents = data.slice(indexOfFirstStudent, indexOfLastStudent);
   const [selectedStudent, setSelectedStudent] = useState(null);
+
+  const allSkills = new Set();
+  students.forEach((student) => {
+    student.skills.forEach((skill) => {
+      allSkills.add(skill);
+    });
+  });
+
+  const allSkillsArray = Array.from(allSkills);
+
+  const uniqueGrades = new Set();
+  const uniqueGradYears = new Set();
+
+  students.forEach((student) => {
+    uniqueGradYears.add(student.expected_graduate_year);
+
+    const avgGrade =
+      student.list_of_courses.reduce((acc, curr) => acc + curr.grade, 0) /
+      student.list_of_courses.length;
+    uniqueGrades.add(Math.round(avgGrade));
+  });
+
+  const uniqueGradesArray = Array.from(uniqueGrades);
+  const uniqueGradYearsArray = Array.from(uniqueGradYears);
 
   const handleCardClick = (studentId) => {
     const student = students.find((s) => s.id === studentId);
@@ -225,21 +227,36 @@ function App() {
   console.log(data.length);
   return (
     <Container>
-      <Grid container spacing={3}>
+      <Grid
+        container
+        spacing={3}
+        style={{
+          backgroundColor: "#000",
+          color: "#fff",
+        }}
+      >
         {/* Filter Section */}
 
         <Grid item xs={12} md={4} padding={8}>
           <Paper
             style={{
               paddingLeft: "5px",
-              backgroundColor: "#fff",
-              color: "black",
+              backgroundColor: "black",
+              color: "#FFF",
               borderRadius: "12px", // Rounded corners
             }}
           >
             {" "}
             <FilterLabels label={"Search by courses"} />
-            <Stack spacing={3} sx={{ width: "100%" }}>
+            <Stack
+              spacing={3}
+              sx={{
+                width: "100%",
+                backgroundColor: "#000",
+                color: "#fff",
+                border: "1px solid grey",
+              }}
+            >
               <Autocomplete
                 multiple
                 id="tags-outlined"
@@ -248,7 +265,16 @@ function App() {
                 filterSelectedOptions
                 onChange={handleFilterChange}
                 renderInput={(params) => (
-                  <TextField {...params} placeholder="Courses" />
+                  <TextField
+                    style={{ backgroundColor: "#000", color: "#fff" }}
+                    {...params}
+                    placeholder="Courses"
+                    InputProps={{
+                      ...params.InputProps,
+
+                      style: { color: "#fff" }, // Apply white color style directly to the input
+                    }}
+                  />
                 )}
                 classes={{
                   tag: "custom-tag", // This is the class you can target
@@ -256,10 +282,10 @@ function App() {
               />
             </Stack>
           </Paper>
-          <Paper style={{ backgroundColor: "#fff", color: "black" }}>
+          <Paper style={{ backgroundColor: "black", color: "#FFF" }}>
             <FilterLabels label={"Skills"} />
 
-            {uniqueSkillsArray.map((skill) => (
+            {allSkillsArray.map((skill) => (
               <Grid item xs={12} md={8}>
                 <FormControlLabel
                   key={skill}
@@ -284,7 +310,7 @@ function App() {
               </Grid>
             ))}
           </Paper>
-          <Paper style={{ backgroundColor: "#fff", color: "black" }}>
+          <Paper style={{ backgroundColor: "#000", color: "#fff" }}>
             <FilterLabels label={"Average Grade"} />
 
             {grade.map((grade) => (
@@ -310,8 +336,11 @@ function App() {
               />
             ))}
           </Paper>
-          <Paper style={{ backgroundColor: "#fff", color: "black" }}>
-            <FilterLabels label={"Graduation Year"} />
+          <Paper style={{ backgroundColor: "#000", color: "#fff" }}>
+            <FilterLabels
+              style={{ backgroundColor: "#000", color: "#fff" }}
+              label={"Graduation Year"}
+            />
             {uniqueGradYearsArray.map((year) => (
               <FormControlLabel
                 key={year}
@@ -340,20 +369,36 @@ function App() {
         <Grid item xs={12} md={8}>
           <Grid container alignItems="center" spacing={2}>
             <Grid item xs={6}>
-              <Typography color={"black"} variant="h5">
+              <Typography color={"white"} variant="h5">
                 {`${data.length} matches found`}
               </Typography>
             </Grid>
-            <Grid item xs={6} style={{ textAlign: "right" }}>
+            <Grid item xs={6} style={{ textAlign: "right", color: "white" }}>
               <FormControl variant="outlined" size="small">
-                <InputLabel>Sort By</InputLabel>
+                <InputLabel style={{ color: "white", minWidth: "100px" }}>
+                  Sort By
+                </InputLabel>
                 <Select
                   value={selectedSort}
                   onChange={(e) => {
                     setSelectedSort(e.target.value);
                     sortData(e.target.value);
                   }}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        backgroundColor: "#36454F",
+                        color: "white",
+                      },
+                    },
+                  }}
                   label="Sort By"
+                  sx={{
+                    color: "white", // this changes the color of the text
+                    "& .MuiSelect-icon": {
+                      color: "white", // this changes the color of the dropdown arrow
+                    },
+                  }}
                 >
                   <MenuItem value={"Name"}>Name</MenuItem>
                   <MenuItem value={"Nationality"}>Nationality</MenuItem>
@@ -370,7 +415,7 @@ function App() {
             style={{
               padding: "16px",
               backgroundColor: "transparent",
-              color: "#black",
+              color: "#fff",
               boxShadow: "none",
               // borderRadius: "12px", // Rounded corners
             }}
@@ -381,9 +426,9 @@ function App() {
               style={{
                 marginBottom: "15px",
                 padding: "10px",
-                color: "black",
+                color: "#fff",
                 borderRadius: "12px", // Rounded corners
-                backgroundColor: "#ff",
+                backgroundColor: "grey",
               }}
             >
               <Grid container alignItems="center" spacing={2}>
@@ -430,7 +475,11 @@ function App() {
               count={Math.ceil(data.length / studentsPerPage)}
               page={currentPage}
               onChange={handlePageChange}
-              sx={{ color: { color: "#00df9a" } }}
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  color: "#fff", // This will change the text color of the pagination items
+                },
+              }}
             />
           </div>
         </Grid>

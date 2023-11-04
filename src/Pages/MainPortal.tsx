@@ -13,14 +13,30 @@ import { Grid } from "@mui/material";
 
 function MainPortal() {
   return (
-      <div>
-        {/* <Navbar /> */}
-        <Grid spacing={"23324"} paddingTop={"40px"}></Grid>
+    <div
+      style={{
+        backgroundColor: "black",
+        color: "white",
+      }}
+    >
+      {/* <Navbar /> */}
+      <Grid
+        spacing={"23324"}
+        paddingTop={"40px"}
+        style={{
+          backgroundColor: "black",
+        }}
+      ></Grid>
 
-        <Layout />
-        <Grid spacing={"233324"} paddingTop={"40px"}></Grid>
-
-      </div>
+      <Layout />
+      <Grid
+        spacing={"233324"}
+        paddingTop={"40px"}
+        style={{
+          backgroundColor: "black",
+        }}
+      ></Grid>
+    </div>
   );
 }
 

@@ -10,7 +10,7 @@ import {
   Card,
   Pagination,
 } from "@mui/material";
-import StudentCard from "./StudentCard";  // Import the StudentCard component
+import StudentCard from "./StudentCard"; // Import the StudentCard component
 
 const StudentGrid = ({
   data,
@@ -28,7 +28,7 @@ const StudentGrid = ({
     <Grid item xs={12} md={8}>
       <Grid container alignItems="center" spacing={2}>
         <Grid item xs={6}>
-          <Typography color={"black"} variant="h5">
+          <Typography color={"white"} variant="h5">
             {`${data.length} matches found`}
           </Typography>
         </Grid>
@@ -57,7 +57,7 @@ const StudentGrid = ({
         style={{
           padding: "16px",
           backgroundColor: "transparent",
-          color: "#black",
+          color: "#fff",
           boxShadow: "none",
         }}
       >
@@ -66,25 +66,33 @@ const StudentGrid = ({
           style={{
             marginBottom: "15px",
             padding: "10px",
-            color: "black",
+            color: "#fff",
             borderRadius: "12px",
           }}
         >
           <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={4}>Name</Grid>
-            <Grid item xs={3}>Nationality</Grid>
-            <Grid item xs={2}>Grades</Grid>
-            <Grid item xs={2}>Expected year of graduation</Grid>
+            <Grid item xs={4}>
+              Name
+            </Grid>
+            <Grid item xs={3}>
+              Nationality
+            </Grid>
+            <Grid item xs={2}>
+              Grades
+            </Grid>
+            <Grid item xs={2}>
+              Expected year of graduation
+            </Grid>
           </Grid>
         </Card>
         {/* Student Cards */}
         {currentStudents.map((student) => {
           return (
-            <StudentCard 
-              student={student} 
-              handleCardClick={handleCardClick} 
-              avgGrade={avgGrade} 
-              stringAvatar={stringAvatar} 
+            <StudentCard
+              student={student}
+              handleCardClick={handleCardClick}
+              avgGrade={avgGrade}
+              stringAvatar={stringAvatar}
             />
           );
         })}

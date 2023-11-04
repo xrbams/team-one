@@ -8,11 +8,12 @@ const StudentCard = ({ student, handleCardClick, avgGrade, stringAvatar }) => {
       style={{
         marginBottom: "6px",
         padding: "10px",
-        color: "black",
+        color: "#fff",
+        backgroundColor: "#36454F",
         borderRadius: "12px",
         cursor: "pointer",
         "&:hover": {
-          backgroundColor: "#f5f5f5",
+          backgroundColor: "black",
         },
       }}
       onClick={() => handleCardClick(student.id)}
@@ -25,7 +26,7 @@ const StudentCard = ({ student, handleCardClick, avgGrade, stringAvatar }) => {
           <Typography variant="h6">{student.name}</Typography>
         </Grid>
         <Grid item xs={3}>
-          <Typography variant="subtitle1" color={"grey"}>
+          <Typography variant="subtitle1" color={"#D3D3D3"}>
             {student.nationality}
           </Typography>
         </Grid>
