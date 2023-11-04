@@ -487,6 +487,7 @@ function App() {
       <StudentDialog
         selectedStudent={selectedStudent}
         setSelectedStudent={setSelectedStudent}
+        courses={courses}
       />
     </Container>
   );

@@ -17,8 +17,10 @@ import {
   Slider,
 } from "@mui/material";
 
-const StudentDialog = ({ setSelectedStudent, selectedStudent }) => {
+const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
   const [gpa, setGpa] = useState(0);
+  const [credits, setCredits] = useState(0);
+  const [allCourses, setAllCourses] = useState([]);
 
   useEffect(() => {
     let grade = 0;
@@ -29,10 +31,16 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent }) => {
       selectedStudent.list_of_courses.forEach((course) => {
         grade += course.grade;
       });
-      let gr = grade / selectedStudent.list_of_courses.length;
+      let gr = parseFloat(
+        (grade / selectedStudent.list_of_courses.length).toFixed(1)
+      );
       setGpa(gr);
     }
-  }, [selectedStudent]);
+
+    if (selectedStudent) {
+      setAllCourses(courses);
+    }
+  }, [selectedStudent, courses]);
 
   return (
     <Dialog
@@ -183,30 +191,136 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent }) => {
               </Grid>
               <Grid item xs={12} sm={7}>
                 {/* Right Column */}
-                <Box p={2}>
-                  <Typography variant="h6">
+                <Box
+                  border={2}
+                  p={2}
+                  borderColor="grey.300"
+                  style={{
+                    boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{ textAlign: "center", marginBottom: "24px" }}
+                  >
                     Professional skills / experience
                   </Typography>
-                  <List>
-                    {/* This would be a loop through course data */}
+
+                  <Grid container spacing={0} alignItems="center" mt={2}>
+                    <Grid item xs={12} sm={4}>
+                      <Typography variant="subtitle2">
+                        Credits completed:
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={8}>
+                      <Typography
+                        variant="subtitle1"
+                        style={{ fontWeight: "bold", color: "#1AA7EC" }}
+                      >
+                        {credits}
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xs={12} sm={4}>
+                      <Typography variant="subtitle2">Grade:</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={8}>
+                      <Typography
+                        variant="subtitle1"
+                        style={{ fontWeight: "bold", color: "#1AA7EC" }}
+                      >
+                        {gpa}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+
+                  <Typography
+                    variant="subtitle2"
+                    sx={{
+                      textAlign: "left",
+                      marginTop: "16px",
+                      marginBottom: "0px",
+                    }}
+                  >
+                    Courses completed:
+                  </Typography>
+
+                  {/* Courses table */}
+                  <Grid container spacing={0} alignItems="center" mt={0}>
+                    <Grid item xs={12} sm={1}>
+                      <Typography
+                        variant="subtitle2"
+                        style={{ color: "#a0a0a0", textAlign: "center" }}
+                      >
+                        credits
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={10}>
+                      <Typography
+                        variant="subtitle2"
+                        style={{ color: "#a0a0a0", textAlign: "center" }}
+                      >
+                        course
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={1}>
+                      <Typography
+                        variant="subtitle2"
+                        style={{ color: "#a0a0a0", textAlign: "center" }}
+                      >
+                        grade
+                      </Typography>
+                    </Grid>
+
                     {selectedStudent.list_of_courses.map((course) => (
-                      <ListItem key={course.name}>
-                        <ListItemText
-                          primary={course.name}
-                          secondary={`Credits: 5 | Grade: ${course.grade}`}
-                        />
-                        <Slider
-                          value={course.grade}
-                          step={1}
-                          marks
-                          min={1}
-                          max={5}
-                          valueLabelDisplay="auto"
-                          disabled
-                        />
-                      </ListItem>
+                      <React.Fragment key={course.id}>
+                        <Grid item xs={12} sm={1}>
+                          <Typography
+                            variant="subtitle2"
+                            style={{ color: "#000", textAlign: "center" }}
+                          >
+                            5
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                          sm={10}
+                          style={{
+                            borderLeft: "2px solid #000",
+                            paddingLeft: "16px",
+                          }}
+                        >
+                          <Typography
+                            variant="subtitle2"
+                            style={{ color: "#000", textAlign: "left" }}
+                          >
+                            {allCourses &&
+                              allCourses.find((item) => item.id === course.id)
+                                ?.name}
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                          sm={1}
+                          style={{
+                            borderLeft: "2px solid #000",
+                            paddingLeft: "16px",
+                          }}
+                        >
+                          <Typography
+                            variant="subtitle2"
+                            style={{ color: "#000", textAlign: "center" }}
+                          >
+                            {course.grade}
+                          </Typography>
+                        </Grid>
+                      </React.Fragment>
                     ))}
-                  </List>
+                  </Grid>
+
                   {/* Skills */}
                   {selectedStudent.skills.map((skill) => (
                     <Chip key={skill} label={skill} />
