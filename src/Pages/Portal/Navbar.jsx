@@ -41,7 +41,7 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={` fixed-navbar flex justify-between items-center h-24 w-full text-white ${
+        className={`fixed-navbar flex justify-between items-center h-24 w-full text-white ${
           navVisible ? "" : "hidden-navbar"
         }`}
       >

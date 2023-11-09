@@ -11,17 +11,17 @@ const Analytics = () => {
           <p className="text-[#00df9a] font-bold ">
             Join the community and start hiring the best candidates
           </p>
-          <h1 className="md:text-4xl text-[black] sm:text-3xl text-2xl font-bold py-2">
+          <h1 className="md:text-4xl text-[#1e1f1f] sm:text-3xl text-2xl font-bold py-2">
             Access the largest university network{" "}
           </h1>
-          <p className="text-[black]">
+          <p className="text-[#1e1f1f]">
             <li>Digitalize and easily grow your university relations</li>
           </p>
-          <p className="text-[black]">
+          <p className="text-[#1e1f1f]">
             <li>Engage directly with students</li>
           </p>
           <Link to={"/login"}>
-            <button className="bg-black text-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3">
+            <button className="bg-#1e1f1f text-[#00df9a] bg-[#1e1f1f] w-[200px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3">
               Get Started
             </button>
           </Link>
