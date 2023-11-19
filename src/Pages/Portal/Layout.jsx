@@ -226,13 +226,14 @@ function App() {
 
   console.log(data.length);
   return (
-    <Container>
+    <Container style={{ marginLeft: "6vw", marginRight: "5vw" }}>
       <Grid
         container
         spacing={3}
         style={{
           backgroundColor: "#000",
           color: "#fff",
+          width: "80vw",
         }}
       >
         {/* Filter Section */}
