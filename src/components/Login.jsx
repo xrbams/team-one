@@ -19,10 +19,10 @@ const LoginPage = () => {
 
   return (
     <div >
-      <div className="flex flex-col  justify-center items-center h-screen">
+      <div className="bg-[#1e1f1f] flex flex-col  justify-center items-center h-screen">
         <div className="flex flex-col justify-center items-center w-1/2">
           <div className="flex justify-center items-center">
-            <h2 className="text-center text-4xl font-bold ml-2">Login</h2>
+            <h2 className=" text-[white] text-center text-4xl font-bold ml-2">Login</h2>
           </div>
           <form
             className="mt-8 flex flex-col justify-center items-center"
