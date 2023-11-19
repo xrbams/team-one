@@ -71,12 +71,21 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={5}>
                 {/* Left Column */}
-                <Box p={3}>
-                  <Avatar
-                    src={selectedStudent.avatar}
-                    sx={{ width: 120, height: 120 }}
-                  />
+                <Box p={3} style={{ height: "75%" }}>
+                  {/* Box for Avatar */}
+                  <Box
+                    sx={{
+                      position: "relative",
+                      width: "15vh",
+                    }}
+                  >
+                    <Avatar
+                      src={selectedStudent.avatar}
+                      sx={{ width: "100%", height: "100%" }}
+                    />
+                  </Box>
                   <p> </p>
+                  {/* Boxed block for primary info: Name, country, email and phone number */}
                   <Box
                     border={2}
                     p={2}
@@ -87,15 +96,24 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
                       borderRadius: "10px",
                     }}
                   >
-                    <Grid container spacing={2} alignItems="center">
+                    <Grid
+                      container
+                      spacing={2}
+                      alignItems="center"
+                      style={{ height: "15vh" }}
+                    >
                       <Grid item xs={12} sm={4}>
-                        <Typography variant="subtitle2">
+                        <Typography
+                          variant="subtitle2"
+                          sx={{ lineHeight: "0.5" }}
+                        >
                           Student name:
                         </Typography>
                       </Grid>
                       <Grid item xs={12} sm={8}>
                         <Typography
                           variant="subtitle1"
+                          sx={{ lineHeight: "0.5" }}
                           style={{ fontWeight: "bold" }}
                         >
                           {selectedStudent.name}
@@ -103,11 +121,17 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
                       </Grid>
 
                       <Grid item xs={12} sm={4}>
-                        <Typography variant="subtitle2">Country:</Typography>
+                        <Typography
+                          variant="subtitle2"
+                          sx={{ lineHeight: "0.5" }}
+                        >
+                          Country:
+                        </Typography>
                       </Grid>
                       <Grid item xs={12} sm={8}>
                         <Typography
                           variant="subtitle1"
+                          sx={{ lineHeight: "0.5" }}
                           style={{ fontWeight: "bold" }}
                         >
                           {selectedStudent.nationality}
@@ -115,11 +139,17 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
                       </Grid>
 
                       <Grid item xs={12} sm={4}>
-                        <Typography variant="subtitle2">Email:</Typography>
+                        <Typography
+                          variant="subtitle2"
+                          sx={{ lineHeight: "0.5" }}
+                        >
+                          Email:
+                        </Typography>
                       </Grid>
                       <Grid item xs={12} sm={8}>
                         <Typography
                           variant="subtitle1"
+                          sx={{ lineHeight: "0.5" }}
                           style={{ fontWeight: "bold", color: "#1AA7EC" }}
                         >
                           {selectedStudent.email}
@@ -127,13 +157,17 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
                       </Grid>
 
                       <Grid item xs={12} sm={4}>
-                        <Typography variant="subtitle2">
+                        <Typography
+                          variant="subtitle2"
+                          sx={{ lineHeight: "0.5" }}
+                        >
                           Phone Number:
                         </Typography>
                       </Grid>
                       <Grid item xs={12} sm={8}>
                         <Typography
                           variant="subtitle1"
+                          sx={{ lineHeight: "0.5" }}
                           style={{ fontWeight: "bold" }}
                         >
                           {selectedStudent.phone_number}
@@ -150,6 +184,7 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
                     style={{
                       boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
                       borderRadius: "10px",
+                      height: "15vh",
                     }}
                   >
                     <Typography
@@ -171,6 +206,7 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
                     style={{
                       boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
                       borderRadius: "10px",
+                      height: "12vh",
                     }}
                   >
                     <Typography
@@ -188,6 +224,7 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
                         alignItems: "center",
                         justifyContent: "center",
                         height: 24, // Fix the height to match your design
+                        marginTop: "1.5vh",
                       }}
                     >
                       <Typography variant="body1" sx={{ fontSize: "12px" }}>
@@ -206,12 +243,13 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
                   style={{
                     boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
                     borderRadius: "10px",
+                    height: "96%",
                   }}
                   height={"60.5vh"}
                 >
                   <Typography
                     variant="h6"
-                    sx={{ textAlign: "center", marginBottom: "24px" }}
+                    sx={{ textAlign: "center", marginBottom: "2vh" }}
                   >
                     Professional skills / experience
                   </Typography>
@@ -256,154 +294,161 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
                   </Typography>
 
                   {/* Courses table */}
-                  <Grid container spacing={0} alignItems="center" ml={0}>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={2}
-                      ml={0}
-                      style={{
-                        paddingLeft: "8%",
-                      }}
-                    >
-                      <Typography
-                        variant="caption"
+                  <Box
+                    sx={{
+                      position: "relative",
+                      height: "30vh",
+                    }}
+                  >
+                    <Grid container spacing={0} alignItems="center" ml={0}>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={2}
+                        ml={0}
                         style={{
-                          display: "block",
-                          color: "#a0a0a0",
-                          textAlign: "center",
-                          //paddingLeft: "35%",
+                          paddingLeft: "8%",
                         }}
                       >
-                        credits
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={8}>
-                      <Typography
-                        variant="caption"
-                        style={{
-                          display: "block",
-                          color: "#a0a0a0",
-                          textAlign: "center",
-                        }}
-                      >
-                        course
-                      </Typography>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={2}
-                      style={{
-                        paddingLeft: "0.5vh",
-                        //paddingRight: "10%",
-                      }}
-                    >
-                      <Typography
-                        variant="caption"
-                        style={{
-                          display: "block",
-                          color: "#a0a0a0",
-                          textAlign: "left",
-                        }}
-                      >
-                        grade
-                      </Typography>
-                    </Grid>
-
-                    {/* Courses list */}
-                    <div
-                      style={{
-                        //width: "100vw",
-                        height: "25vh",
-                        overflowY: "auto",
-                        marginBottom: "1vh",
-                      }}
-                    >
-                      <Grid container spacing={0}>
-                        {selectedStudent.list_of_courses.map((course) => (
-                          <React.Fragment key={course.id}>
-                            <Grid
-                              item
-                              xs={12}
-                              sm={2}
-                              style={{
-                                paddingLeft: "8%",
-                              }}
-                            >
-                              <Typography
-                                variant="caption"
-                                style={{
-                                  display: "block",
-                                  color: "#000",
-                                  textAlign: "center",
-                                  //marginLeft: "35%",
-                                  fontFamily: "Outfit, Arial",
-                                }}
-                              >
-                                {allCourses &&
-                                  allCourses.find(
-                                    (item) => item.id === course.id
-                                  )?.credits}
-                              </Typography>
-                            </Grid>
-                            <Grid
-                              item
-                              xs={12}
-                              sm={8}
-                              style={{
-                                borderLeft: "2px solid #000",
-                                paddingLeft: "2%",
-                              }}
-                            >
-                              <Typography
-                                variant="caption"
-                                style={{
-                                  display: "block",
-                                  color: "#000",
-                                  textAlign: "left",
-                                  fontFamily: "Outfit, Arial",
-                                }}
-                              >
-                                {allCourses &&
-                                  allCourses.find(
-                                    (item) => item.id === course.id
-                                  )?.name}
-                              </Typography>
-                            </Grid>
-                            <Grid
-                              item
-                              xs={12}
-                              sm={2}
-                              style={{
-                                borderLeft: "2px solid #000",
-                                paddingLeft: "4%",
-                                //paddingRight: "10%",
-                              }}
-                            >
-                              <Typography
-                                variant="caption"
-                                style={{
-                                  display: "block",
-                                  color:
-                                    course.grade === 5
-                                      ? "#4cd038"
-                                      : course.grade === 4
-                                      ? "#00B4D8"
-                                      : "red",
-                                  textAlign: "left",
-                                  fontWeight: "600",
-                                  fontFamily: "Outfit, Arial",
-                                }}
-                              >
-                                {course.grade}
-                              </Typography>
-                            </Grid>
-                          </React.Fragment>
-                        ))}
+                        <Typography
+                          variant="caption"
+                          style={{
+                            display: "block",
+                            color: "#a0a0a0",
+                            textAlign: "center",
+                            //paddingLeft: "35%",
+                          }}
+                        >
+                          credits
+                        </Typography>
                       </Grid>
-                    </div>
-                  </Grid>
+                      <Grid item xs={12} sm={8}>
+                        <Typography
+                          variant="caption"
+                          style={{
+                            display: "block",
+                            color: "#a0a0a0",
+                            textAlign: "center",
+                          }}
+                        >
+                          course
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={2}
+                        style={{
+                          paddingLeft: "0.5vh",
+                          //paddingRight: "10%",
+                        }}
+                      >
+                        <Typography
+                          variant="caption"
+                          style={{
+                            display: "block",
+                            color: "#a0a0a0",
+                            textAlign: "left",
+                          }}
+                        >
+                          grade
+                        </Typography>
+                      </Grid>
+
+                      {/* Courses list */}
+                      <div
+                        style={{
+                          //width: "100vw",
+                          height: "25vh",
+                          overflowY: "auto",
+                          marginBottom: "1vh",
+                        }}
+                      >
+                        <Grid container spacing={0}>
+                          {selectedStudent.list_of_courses.map((course) => (
+                            <React.Fragment key={course.id}>
+                              <Grid
+                                item
+                                xs={12}
+                                sm={2}
+                                style={{
+                                  paddingLeft: "8%",
+                                }}
+                              >
+                                <Typography
+                                  variant="caption"
+                                  style={{
+                                    display: "block",
+                                    color: "#000",
+                                    textAlign: "center",
+                                    //marginLeft: "35%",
+                                    fontFamily: "Outfit, Arial",
+                                  }}
+                                >
+                                  {allCourses &&
+                                    allCourses.find(
+                                      (item) => item.id === course.id
+                                    )?.credits}
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                item
+                                xs={12}
+                                sm={8}
+                                style={{
+                                  borderLeft: "2px solid #000",
+                                  paddingLeft: "2%",
+                                }}
+                              >
+                                <Typography
+                                  variant="caption"
+                                  style={{
+                                    display: "block",
+                                    color: "#000",
+                                    textAlign: "left",
+                                    fontFamily: "Outfit, Arial",
+                                  }}
+                                >
+                                  {allCourses &&
+                                    allCourses.find(
+                                      (item) => item.id === course.id
+                                    )?.name}
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                item
+                                xs={12}
+                                sm={2}
+                                style={{
+                                  borderLeft: "2px solid #000",
+                                  paddingLeft: "4%",
+                                  //paddingRight: "10%",
+                                }}
+                              >
+                                <Typography
+                                  variant="caption"
+                                  style={{
+                                    display: "block",
+                                    color:
+                                      course.grade === 5
+                                        ? "#4cd038"
+                                        : course.grade === 4
+                                        ? "#00B4D8"
+                                        : "red",
+                                    textAlign: "left",
+                                    fontWeight: "600",
+                                    fontFamily: "Outfit, Arial",
+                                  }}
+                                >
+                                  {course.grade}
+                                </Typography>
+                              </Grid>
+                            </React.Fragment>
+                          ))}
+                        </Grid>
+                      </div>
+                    </Grid>
+                  </Box>
 
                   <Grid container spacing={0} alignItems="center" mt={2}>
                     <Grid item xs={12} sm={4}>
