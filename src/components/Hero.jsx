@@ -7,7 +7,7 @@ const HeroVideo = () => {
   return (
     <div className="hero-video">
       {/* <video src={video} autoPlay loop muted /> */}
-      <img src="src\assets\pic.png" alt="" />
+      <img src="src\assets\enhance.jpg" alt="image" />
     </div>
   );
 };
