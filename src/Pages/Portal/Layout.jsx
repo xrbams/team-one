@@ -33,6 +33,9 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import StudentDialog from "./Dialog"; // The path should be relative to your App.js file
 import StudentCard from "./Card";
+import studentsData from "../../assets/students_final.json";
+import coursesData from "../../assets/courses_final.json";
+
 function stringToColor(string) {
   let hash = 0;
   let i;
@@ -148,30 +151,31 @@ function App() {
     setData(sortedStudents);
   };
 
+
   useEffect(() => {
     // Fetch local JSON data for students and courses
-    fetch("https://r5ok77p8ki.execute-api.eu-north-1.amazonaws.com/courses")
-      .then((response) => response.json())
-      .then((data) => {
-        setCourses(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching courses:", error);
-      });
+    // fetch("https://r5ok77p8ki.execute-api.eu-north-1.amazonaws.com/courses")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setCourses(data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching courses:", error);
+    //   });
 
-    fetch("https://r5ok77p8ki.execute-api.eu-north-1.amazonaws.com/students")
-      .then((response) => response.json())
-      .then((data) => {
-        setStudents(data);
-        setData(data); // Populate initial data with fetched students
-      })
-      .catch((error) => {
-        console.error("Error fetching courses:", error);
-      });
+    // fetch("https://r5ok77p8ki.execute-api.eu-north-1.amazonaws.com/students")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setStudents(data);
+    //     setData(data); // Populate initial data with fetched students
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching courses:", error);
+    //   });
 
-    //setStudents(studentsJSON);
-    //setCourses(coursesJSON);
-    //setData(studentsJSON); // Populate initial data with fetched students
+    setStudents(studentsData);
+    setCourses(coursesData);
+    setData(studentsData); // Populate initial data with fetched students
   }, []);
 
   const handleFilterChange = (event, values) => {

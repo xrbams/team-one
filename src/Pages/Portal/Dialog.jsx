@@ -177,6 +177,7 @@ const StudentDialog = ({ setSelectedStudent, selectedStudent, courses }) => {
                   </Box>
 
                   <Box
+                  
                     border={2}
                     p={2}
                     mt={2}

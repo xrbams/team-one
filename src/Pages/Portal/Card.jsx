@@ -20,7 +20,7 @@ const StudentCard = ({ student, handleCardClick, avgGrade, stringAvatar }) => {
     >
       <Grid container alignItems="center" spacing={2}>
         <Grid item>
-          <Avatar alt={student.name} {...stringAvatar(student.name)} />
+          <Avatar alt={student.name} src={student.avatar} />
         </Grid>
         <Grid item xs={3}>
           <Typography variant="h6">{student.name}</Typography>
